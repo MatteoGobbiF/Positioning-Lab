@@ -1,12 +1,13 @@
+%Declare constants
 a = 6378137;
 f = 1/298.257222100882711243;
 e = sqrt(f*(2-f));
 
-
+%Compute origin global geodetic and global cartesian coordinates
 Xogeo = [dec2rad(sex2dec(44,23,24.000)); dec2rad(sex2dec(8,56,20.000)); 70];
-
 Xocart = gg2gc(Xogeo, a, e);
 
+%Insert starting data
 Xall = [0;30;0];
 Xbll = [0;-30;0];
 Xcll = [200;0;0];
@@ -15,6 +16,7 @@ Xi = dec2rad(sex2dec(0,0,10.23));
 Eta = dec2rad(sex2dec(0,0,9.5));
 Alpha = dec2rad(sex2dec(30, 27, 18));
 
+%Compute rotation matrix from local level to local cartesian
 Rlc2ll = computeRotationMatrix(Xi, Eta, Alpha);
 Rll2lc = Rlc2ll';
 
