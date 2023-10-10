@@ -1,0 +1,67 @@
+Local cartesian coordinates of points A, B and C in meters:
+
+Point A:
+E: -15.206
+N: 25.861
+U: -0.001
+
+Point B:
+E: 15.206
+N: -25.861
+U: 0.001
+
+Point C:
+E: 172.406
+N: 101.372
+U: -0.013
+
+ITRF global cartesian coordinates of points A, B, C
+
+Point A:
+X: 4509854.339
+Y: 709345.361
+Z: 4439229.142
+
+Point B:
+X: 4509885.357
+Y: 709381.026
+Z: 4439192.183
+
+Point C:
+X: 4509772.998
+Y: 709522.478
+Z: 4439283.094
+
+ETRF global geodetic coordinates of points A, B, C
+
+Point A:
+Lat: 44.000
+Long: 8.000
+h: 69.998
+
+Point B:
+Lat: 44.000
+Long: 8.000
+h: 69.999
+
+Point C:
+Lat: 44.000
+Long: 8.000
+h: 69.988
+
+Standard deviations of points A, B, C in East, North, Up in cm
+
+Point A:
+East: 10.3
+North: 10.2
+Up: 12.6
+
+Point B:
+East: 10.3
+North: 10.2
+Up: 12.6
+
+Point C:
+East: 15.3
+North: 14.2
+Up: 20.1
