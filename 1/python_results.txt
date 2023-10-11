@@ -35,18 +35,18 @@ Z: 4439283.094
 ETRF global geodetic coordinates of points A, B, C
 
 Point A:
-Lat: 44.000 23.000 24.821
-Long: 8.000 56.000 19.282
+Lat: 44.000 23.000' 24.821"
+Long: 8.000 56.000' 19.282"
 h: 69.998
 
 Point B:
-Lat: 44.000 23.000 23.145
-Long: 8.000 56.000 20.656
+Lat: 44.000 23.000' 23.145"
+Long: 8.000 56.000' 20.656"
 h: 69.999
 
 Point C:
-Lat: 44.000 23.000 27.267
-Long: 8.000 56.000 27.758
+Lat: 44.000 23.000' 27.267"
+Long: 8.000 56.000' 27.758"
 h: 69.988
 
 Standard deviations of points A, B, C in East, North, Up in cm

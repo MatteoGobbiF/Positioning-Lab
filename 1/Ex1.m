@@ -79,11 +79,11 @@ Ca = R0*CgcA*R0';
 Cb = R0*CgcB*R0';
 Cc = R0*CgcC*R0';
 
-%Get the standard deviation n East, North, Up in cm for each point
+%Get the standard deviation in Lat, Lon, Up in cm for each point
 
-deviationA = 100*(sqrt(diag(Ca)))
-deviationB = 100*(sqrt(diag(Cb)))
-deviationC = 100*(sqrt(diag(Cc)))
+deviationAg = 100*(sqrt(diag(Ca)))
+deviationBg = 100*(sqrt(diag(Cb)))
+deviationCg = 100*(sqrt(diag(Cc)))
 
 %Print the data on a file
 
@@ -100,9 +100,9 @@ fprintf(fileID, '\nPoint B:\nX: %.3f\nY: %.3f\nZ: %.3f\n', Xbgc(1), Xbgc(2), Xbg
 fprintf(fileID, '\nPoint C:\nX: %.3f\nY: %.3f\nZ: %.3f\n', Xcgc(1), Xcgc(2), Xcgc(3));
 
 fprintf(fileID, '\nETRF global geodetic coordinates of points A, B, C\n');
-fprintf(fileID, '\nPoint A:\nLat: %.3f\nLong: %.3f\nh: %.3f\n', Xagg(1), Xagg(2), Xaggh);
-fprintf(fileID, '\nPoint B:\nLat: %.3f\nLong: %.3f\nh: %.3f\n', Xbgg(1), Xbgg(2), Xbggh);
-fprintf(fileID, '\nPoint C:\nLat: %.3f\nLong: %.3f\nh: %.3f\n', Xcgg(1), Xcgg(2), Xcggh);
+fprintf(fileID, '\nPoint A:\nLat: %.3f %.3f %.3f\nLong: %.3f %.3f %.3f\nh: %.3f\n', Xagg(1,1), Xagg(1,2), Xagg(1,3), Xagg(2,1), Xagg(2,2), Xagg(2,3), Xaggh);
+fprintf(fileID, '\nPoint B:\nLat: %.3f %.3f %.3f\nLong: %.3f %.3f %.3f\nh: %.3f\n', Xbgg(1,1), Xbgg(1,2), Xbgg(1,3), Xbgg(2,1), Xbgg(2,2), Xbgg(2,3), Xbggh);
+fprintf(fileID, '\nPoint C:\nLat: %.3f %.3f %.3f\nLong: %.3f %.3f %.3f\nh: %.3f\n', Xcgg(1,1), Xcgg(1,2), Xcgg(1,3), Xcgg(2,1), Xcgg(2,2), Xcgg(2,3), Xcggh);
 
 fprintf(fileID, '\nStandard deviations of points A, B, C in East, North, Up in cm\n');
 fprintf(fileID, '\nPoint A:\nEast: %.1f\nNorth: %.1f\nUp: %.1f\n', deviationA(1), deviationA(2), deviationA(3));
