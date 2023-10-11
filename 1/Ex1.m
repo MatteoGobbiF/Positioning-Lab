@@ -81,9 +81,9 @@ Cc = R0*CgcC*R0';
 
 %Get the standard deviation in Lat, Lon, Up in cm for each point
 
-deviationAg = 100*(sqrt(diag(Ca)))
-deviationBg = 100*(sqrt(diag(Cb)))
-deviationCg = 100*(sqrt(diag(Cc)))
+deviationA = 100*(sqrt(diag(Ca)))
+deviationB = 100*(sqrt(diag(Cb)))
+deviationC = 100*(sqrt(diag(Cc)))
 
 %Print the data on a file
 

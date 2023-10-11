@@ -19,7 +19,7 @@ ITRF global cartesian coordinates of points A, B, C
 
 Point A:
 X: 4509854.339
-Y: 709345.361
+Y: 709345.362
 Z: 4439229.142
 
 Point B:
@@ -29,7 +29,7 @@ Z: 4439192.183
 
 Point C:
 X: 4509772.998
-Y: 709522.478
+Y: 709522.485
 Z: 4439283.094
 
 ETRF global geodetic coordinates of points A, B, C
