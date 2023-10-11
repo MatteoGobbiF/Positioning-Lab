@@ -32,7 +32,6 @@ xC_lc = R_ll2lc.dot(xC_ll)
 xA_gc = lc2gc(xA_lc, xO_gc, xO_gg[0], xO_gg[1])
 xB_gc = lc2gc(xB_lc, xO_gc, xO_gg[0], xO_gg[1])
 xC_gc = lc2gc(xC_lc, xO_gc, xO_gg[0], xO_gg[1])
-print(xA_gc)
 
 #Conversion to ETRF on the website
 #Insert ETRF values manually

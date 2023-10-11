@@ -21,14 +21,14 @@ Rlc2ll = computeRotationMatrix(Xi, Eta, Alpha);
 Rll2lc = Rlc2ll';
 
 %Local Cartesian
-Xalc = Rll2lc*Xall
-Xblc = Rll2lc*Xbll
-Xclc = Rll2lc*Xcll
+Xalc = Rll2lc*Xall;
+Xblc = Rll2lc*Xbll;
+Xclc = Rll2lc*Xcll;
 
 %Global Cartesian
-Xagc = lc2gc(Xalc, Xocart, Xogeo(1), Xogeo(2))
-Xbgc = lc2gc(Xblc, Xocart, Xogeo(1), Xogeo(2))
-Xcgc = lc2gc(Xclc, Xocart, Xogeo(1), Xogeo(2))
+Xagc = lc2gc(Xalc, Xocart, Xogeo(1), Xogeo(2));
+Xbgc = lc2gc(Xblc, Xocart, Xogeo(1), Xogeo(2));
+Xcgc = lc2gc(Xclc, Xocart, Xogeo(1), Xogeo(2));
 
 %Conversion to ETRF on the website
 
@@ -44,14 +44,14 @@ Xcggrad = gc2gg(Xc_ETRF);
 
 %Convert to sexagesimal
 
-Xagg = [dec2sex(rad2dec(Xaggrad(1)))'; dec2sex(rad2dec(Xaggrad(2)))']
-Xaggh = Xaggrad(3)
+Xagg = [dec2sex(rad2dec(Xaggrad(1)))'; dec2sex(rad2dec(Xaggrad(2)))'];
+Xaggh = Xaggrad(3);
 
-Xbgg = [dec2sex(rad2dec(Xbggrad(1)))'; dec2sex(rad2dec(Xbggrad(2)))']
-Xbggh = Xbggrad(3)
+Xbgg = [dec2sex(rad2dec(Xbggrad(1)))'; dec2sex(rad2dec(Xbggrad(2)))'];
+Xbggh = Xbggrad(3);
 
-Xcgg = [dec2sex(rad2dec(Xcggrad(1)))'; dec2sex(rad2dec(Xcggrad(2)))']
-Xcggh = Xcggrad(3)
+Xcgg = [dec2sex(rad2dec(Xcggrad(1)))'; dec2sex(rad2dec(Xcggrad(2)))'];
+Xcggh = Xcggrad(3);
 
 % Covariance Propagation
 
@@ -81,9 +81,9 @@ Cc = R0*CgcC*R0';
 
 %Get the standard deviation in Lat, Lon, Up in cm for each point
 
-deviationA = 100*(sqrt(diag(Ca)))
-deviationB = 100*(sqrt(diag(Cb)))
-deviationC = 100*(sqrt(diag(Cc)))
+deviationA = 100*(sqrt(diag(Ca)));
+deviationB = 100*(sqrt(diag(Cb)));
+deviationC = 100*(sqrt(diag(Cc)));
 
 %Print the data on a file
 
