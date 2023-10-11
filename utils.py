@@ -37,7 +37,7 @@ def gg2gc (gg, a = 6378137, e = 0.081819191042832):
 def compute_R_0(lat, long):
     return np.array([[-math.sin(long), math.cos(long), 0], 
          [-math.sin(lat)*math.cos(long), -math.sin(lat)*math.sin(long), math.cos(lat)],
-         [math.cos(lat)*math.cos(long), math.cos(lat)*math.sin(long), math.sin(lat)]])
+         [math.cos(lat)*math.cos(long), math.cos(lat)*math.cos(long), math.sin(lat)]])
 
 def lc2gc (lc, Xogc, lat, long):
     

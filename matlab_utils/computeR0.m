@@ -3,6 +3,6 @@ function [R0] = computeR0(phi, lambda)
 
 R0 = [-sin(lambda) cos(lambda) 0;
     -sin(phi)*cos(lambda) -sin(phi)*sin(lambda) cos(phi);
-    cos(phi)*cos(lambda) cos(phi)*sin(lambda) sin(phi)];
+    cos(phi)*cos(lambda) cos(phi)*cos(lambda) sin(phi)];
 end
 
