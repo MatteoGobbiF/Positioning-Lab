@@ -43,18 +43,34 @@ def lc2gc (lc, Xogc, lat, long):
     
     return Xogc + compute_R_0(lat, long).T.dot(lc)
 
+def compute_Rx(a):
+    return np.array([[1, 0, 0],
+                    [0, math.cos(a), -math.sin(a)],
+                    [0, math.sin(a), math.cos(a)]])
+
+def compute_Ry(a):
+    return  np.array([[math.cos(a), 0, -math.sin(a)],
+                     [0, 1, 0],
+                     [math.sin(a), 0, math.cos(a)]])
+
+def compute_Rz(a):
+    return np.array([[math.cos(a), math.sin(a), 0],
+                     [-math.sin(a), math.cos(a), 0],
+                     [0, 0, 1]])
+
 def compute_rotation_matrix(xi, eta, alpha):
-    Rx = np.array([[1, 0, 0],
-                   [0, math.cos(xi), -math.sin(xi)],
-                   [0, math.sin(xi), math.cos(xi)]])
-    Ry = np.array([[math.cos(eta), 0, -math.sin(eta)],
-                   [0, 1, 0],
-                   [math.sin(eta), 0, math.cos(eta)]])
-    Rz = np.array([[math.cos(alpha), math.sin(alpha), 0],
-                   [-math.sin(alpha), math.cos(alpha), 0],
-                   [0, 0, 1]])
-    
-    return (Rz@Ry@Rx)
+       return (compute_Rz(alpha)@compute_Ry(eta)@compute_Rx(xi))
+
+''' Rx = np.array([[1, 0, 0],
+                [0, math.cos(xi), -math.sin(xi)],
+                [0, math.sin(xi), math.cos(xi)]])
+Ry = np.array([[math.cos(eta), 0, -math.sin(eta)],
+                [0, 1, 0],
+                [math.sin(eta), 0, math.cos(eta)]])
+Rz = np.array([[math.cos(alpha), math.sin(alpha), 0],
+                [-math.sin(alpha), math.cos(alpha), 0],
+                [0, 0, 1]])
+'''
 
 def gc2gg(gc, a = 6378137, b = 6356752.3141, e = 0.081819191042832): #If not specified use GRS80
     e2_b = (a**2-b**2)/b**2
@@ -72,3 +88,16 @@ def gc2gg(gc, a = 6378137, b = 6356752.3141, e = 0.081819191042832): #If not spe
 
 def propagate_cov(C, R):
     return (R @ C @ R.T)
+
+def compute_clock_offset(epoch, dt0, a, b):
+    return (dt0 + a*epoch + b*epoch**2)
+
+def estimate_eta(prev, threshhold, Mt, e):
+    eta = Mt+e*math.sin(prev)
+    if(abs(eta-prev)<threshhold):
+        return eta
+    else:
+        return estimate_eta(eta, threshhold, Mt, e)
+
+def ORS2ITRF(ors, Omega, i, w):
+    return compute_Rz(-Omega)@compute_Rx(-i)@compute_Rz(-w)@ors.T
