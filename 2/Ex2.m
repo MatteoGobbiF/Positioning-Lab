@@ -67,11 +67,7 @@ for Dt = t0 : tstep : (tend - t0)
 
     %rotate from OCRS to ITRF
     
-    ITRFCoord(:,epoch) = ORS2ITRF(ORSCoord(:,epoch), Omega, i, w);
-    
-    ITRFGeo(:,epoch) = gc2gg(ITRFCoord(:,epoch));
-
+    ITRFCoord(:,epoch) = ORS2ITRF(ORSCoord(:,epoch), Omega, i, w);   
+    ITRFGeo(:,epoch) = gc2gg(ITRFCoord(:,epoch));    
 end
-
-
 
