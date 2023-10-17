@@ -86,6 +86,7 @@ gdf.plot(ax = ax, marker='o', color='red')
 
 plt.show()
 
+#Plot the height of the satellite
 mean_h = np.mean(coord_ITRF_geo_deg[2,:])*1e-3
 fig, ax = plt.subplots(figsize=(10,6))
 ax.set(xlabel='seconds in one day (00:00 - 23:59 = 86400 sec)', ylabel='[km]', title='ellipsoidic height variations [km] around mean height = '+str(mean_h)+' [km]')
