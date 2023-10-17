@@ -47,7 +47,7 @@ for Dt = t0 : tstep : (tend - t0)
     Mt = M0 + n*(Dt-t0);
     % compute psi
     eta = estimateEta(0, 10D-10, Mt, e);
-    psi = 1/tan((sqrt(1-e^2)*sin(eta))/(cos(eta)-e));
+    psi = atan2((sqrt(1-e^2)*sin(eta)),(cos(eta)-e));
     % compute r 
     r = (a*(1-e^2))/(1+e*cos(psi));
     % compute w(t)=w0+wdot(t-t0)
@@ -68,6 +68,31 @@ for Dt = t0 : tstep : (tend - t0)
     %rotate from OCRS to ITRF
     
     ITRFCoord(:,epoch) = ORS2ITRF(ORSCoord(:,epoch), Omega, i, w);   
-    ITRFGeo(:,epoch) = gc2gg(ITRFCoord(:,epoch));    
+    ITRFGeo(:,epoch) = gc2gg(ITRFCoord(:,epoch));
+    for i = 1:numel(ITRFGeo(:, epoch))
+    ITRFGeo(i, epoch) = rad2dec(ITRFGeo(i, epoch));
+    end
 end
+
+
+% 4) Plot satellite's daily trajectory with basemap
+figure(1);
+
+% H = subplot(m,n,p), or subplot(mnp), breaks the Figure window
+% into an m-by-n matrix of small axes
+
+% Plot groundtracks
+subplot(3,1,1:2);
+% axesm Define map axes and set map properties
+ax = axesm ('eqdcylin', 'Frame', 'on', 'Grid', 'on', 'LabelUnits', 'degrees', 'MeridianLabel', 'on', 'ParallelLabel', 'on', 'MLabelParallel', 'south');
+% geoshow Display map latitude and longitude data 
+%  DISPLAYTYPE can be 'point', 'line', or 'polygon' and defaults to 'line'
+geoshow('landareas.shp', 'FaceColor', 'black');
+hold on
+geoshow(ITRFGeo(1,:),ITRFGeo(2,:), 'DisplayType', 'point', 'MarkerEdgeColor', 'green');
+% axis EQUAL  sets the aspect ratio so that equal tick mark
+% increments on the x-,y- and z-axis are equal in size.
+% axis TIGHT  sets the axis limits to the range of the data.
+axis equal; axis tight;
+
 

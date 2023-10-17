@@ -40,13 +40,14 @@ plt.show()
 
 coord_ORS = []
 coord_ITRF_cart = []
-coord_ITRF_geo = []
+coord_ITRF_geo_rad = []
+coord_ITRF_geo_deg = []
 
 for Dt in t:
     n = math.sqrt(GMe/a**3)
     Mt = M0 + n*(Dt-t_start)
     eta = estimate_eta(0, 10e-10, Mt, e)
-    psi = 1/math.tan((math.sqrt(1-e**2)*math.sin(eta))/(math.cos(eta)-e))
+    psi = math.atan2((math.sqrt(1-e**2)*math.sin(eta)),(math.cos(eta)-e))
     r = (a*(1-e**2))/(1+e*math.cos(psi))
     w = w_0 + w_dot*(Dt-t_start)
     i = i_0 + i_dot*(Dt-t_start)
@@ -58,18 +59,18 @@ for Dt in t:
 
     coord_ORS.append([x,y,z])
     coord_ITRF_cart.append(ORS2ITRF(np.array([x,y,z]),Omega,i,w))
-    coord_ITRF_geo.append(gc2gg(coord_ITRF_cart[-1]))
-
+    coord_ITRF_geo_rad.append(gc2gg(coord_ITRF_cart[-1]))
+    coord_ITRF_geo_deg.append([rad2deg(member) for member in coord_ITRF_geo_rad[-1][:-1]]+ [coord_ITRF_geo_rad[-1][-1]])
 
 import pandas as pd
 import geopandas as gpd
-coord_ITRF_cart = np.array(coord_ITRF_cart).T
-print(coord_ITRF_cart)
+coord_ITRF_geo_deg = np.array(coord_ITRF_geo_deg).T
+
 # Realize a dataframe containing satellite coordinates
 df = pd.DataFrame()
 df['time'] = t
-df['Latitude'] = coord_ITRF_cart[0,:]
-df['Longitude'] = coord_ITRF_cart[1,:]
+df['Latitude'] = coord_ITRF_geo_deg[0,:]
+df['Longitude'] = coord_ITRF_geo_deg[1,:]
 
 # Transform the DataFrame in a GeoDataFrame
 gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Longitude, df.Latitude), crs = 3857)
@@ -85,6 +86,9 @@ gdf.plot(ax = ax, marker='o', color='red')
 
 plt.show()
 
+mean_h = np.mean(coord_ITRF_geo_deg[2,:])*1e-3
+fig, ax = plt.subplots(figsize=(10,6))
+ax.set(xlabel='seconds in one day (00:00 - 23:59 = 86400 sec)', ylabel='[km]', title='ellipsoidic height variations [km] around mean height = '+str(mean_h)+' [km]')
+ax.plot(t, coord_ITRF_geo_deg[2,:]*1e-3 - mean_h, '-', color='blue')
 
-
-
+plt.show()
