@@ -90,7 +90,7 @@ ax = axesm ('eqdcylin', 'Frame', 'on', 'Grid', 'on', 'LabelUnits', 'degrees', 'M
 geoshow('landareas.shp', 'FaceColor', 'black');
 hold on
 geoshow(ITRFGeo(1,:),ITRFGeo(2,:), 'DisplayType', 'point', 'MarkerEdgeColor', 'green');
-title('Satellite('')s daily trajectory with basemap');
+title('Satellite daily trajectory with basemap');
 % axis EQUAL  sets the aspect ratio so that equal tick mark
 % increments on the x-,y- and z-axis are equal in size.
 % axis TIGHT  sets the axis limits to the range of the data.
@@ -99,7 +99,7 @@ axis equal; axis tight;
 % Plot height of the satellite 
 subplot(3,1,3);
 plot(clockOffsets(1, :), (ITRFGeo(3,:)-mean(ITRFGeo(3,:)))*0.001, '.g');
-title(['ellipsoidic height variations [km] around mean height = ' num2str(mean(ITRFGeo(3,:))*0.001) ' km']);
+title(['Ellipsoidic height variations [km] around mean height = ' num2str(mean(ITRFGeo(3,:))*0.001) ' km']);
 xlabel('seconds in one day (00:00 - 23:59 = 86400 sec)');
 ylabel('[km]');
 xlim([t0, tend]);
