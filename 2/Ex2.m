@@ -37,6 +37,8 @@ title('Clock Offset vs. Time');
 ax = ancestor(timePlot, 'axes');
 ax.XAxis.Exponent = 0;
 
+fileID = fopen('matlab_results.txt', 'w');
+
 ORSCoord = zeros (3, counter);
 ITRFCoord = zeros(3, counter);
 ITRFGeo = zeros(3, counter);
@@ -72,8 +74,15 @@ for Dt = t0 : tstep : (tend - t0)
     for i = 1:2
     ITRFGeo(i, epoch) = rad2dec(ITRFGeo(i, epoch));
     end
-end
 
+    %Print stuff on the file
+    fprintf(fileID, 'Coordinates of the satellite at time: %d\n', Dt);
+    fprintf(fileID, 'ORS: X: %.3f Y: %.3f\n', ORSCoord(1, epoch), ORSCoord(2, epoch));
+    fprintf(fileID, 'ITRF Cartesian: X: %.3f Y: %.3f Z: %.3f\n', ITRFCoord(1,epoch),  ITRFCoord(2,epoch),  ITRFCoord(3,epoch));
+    fprintf(fileID, 'ITRF Geodetic: lat: %.3f Lon: %.3f h: %.3f\n\n', ITRFGeo(1,epoch), ITRFGeo(2,epoch), ITRFGeo(3,epoch));
+
+end
+fclose(fileID);
 
 % 4) Plot satellite's daily trajectory with basemap
 figure(2);
@@ -103,3 +112,9 @@ title(['Ellipsoidic height variations [km] around mean height = ' num2str(mean(I
 xlabel('seconds in one day (00:00 - 23:59 = 86400 sec)');
 ylabel('[km]');
 xlim([t0, tend]);
+
+
+
+
+
+

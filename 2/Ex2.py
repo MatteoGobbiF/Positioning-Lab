@@ -43,6 +43,7 @@ coord_ITRF_cart = []
 coord_ITRF_geo_rad = []
 coord_ITRF_geo_deg = []
 
+f = open('python_results.txt', 'w')
 for Dt in t:
     n = math.sqrt(GMe/a**3)
     Mt = M0 + n*(Dt-t_start)
@@ -61,6 +62,13 @@ for Dt in t:
     coord_ITRF_cart.append(ORS2ITRF(np.array([x,y,z]),Omega,i,w))
     coord_ITRF_geo_rad.append(gc2gg(coord_ITRF_cart[-1]))
     coord_ITRF_geo_deg.append([rad2deg(member) for member in coord_ITRF_geo_rad[-1][:-1]]+ [coord_ITRF_geo_rad[-1][-1]])
+
+    f.write('Coordinates of the satellite at time: {:d}\n'.format(Dt))
+    f.write('ORS: X: {:.3f} Y: {:.3f}\n'.format(x, y))
+    f.write('ITRF Cartesian: X: {:.3f} Y: {:.3f} Z: {:.3f}\n'.format(coord_ITRF_cart[-1][0], coord_ITRF_cart[-1][1], coord_ITRF_cart[-1][2]))
+    f.write('ITRF Geodetic: lat: {:.3f} Lon: {:.3f} h: {:.3f}\n\n'.format(coord_ITRF_geo_deg[-1][0], coord_ITRF_geo_deg[-1][1], coord_ITRF_geo_deg[-1][2]))
+
+f.close()
 
 import pandas as pd
 import geopandas as gpd

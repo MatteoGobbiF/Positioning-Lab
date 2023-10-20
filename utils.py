@@ -61,17 +61,6 @@ def compute_Rz(a):
 def compute_rotation_matrix(xi, eta, alpha):
        return (compute_Rz(alpha)@compute_Ry(eta)@compute_Rx(xi))
 
-''' Rx = np.array([[1, 0, 0],
-                [0, math.cos(xi), -math.sin(xi)],
-                [0, math.sin(xi), math.cos(xi)]])
-Ry = np.array([[math.cos(eta), 0, -math.sin(eta)],
-                [0, 1, 0],
-                [math.sin(eta), 0, math.cos(eta)]])
-Rz = np.array([[math.cos(alpha), math.sin(alpha), 0],
-                [-math.sin(alpha), math.cos(alpha), 0],
-                [0, 0, 1]])
-'''
-
 def gc2gg(gc, a = 6378137, b = 6356752.3141, e = 0.081819191042832): #If not specified use GRS80
     e2_b = (a**2-b**2)/b**2
     r = math.sqrt(gc[0]**2 + gc[1]**2)
