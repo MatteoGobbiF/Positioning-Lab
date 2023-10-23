@@ -21,11 +21,11 @@ Dt=t0:tstep:tend;
 lats=lat0:gstep:latend;
 lons=lon0:gstep:lonend;
 
-matrix = zeros(length(lons), length(lats), length(t));
+matrix = zeros(length(lons), length(lats), length(Dt));
 for t=1:length(Dt)
     for lon = 1:length(lons)
         for lat = 1:length(lats)
-            matrix(lon, lat, t) = iono_correction(lats(lat), lons(lon), az, el, Dt(t), ionoparams);
+            matrix(lon, lat, t) = iono_correction(lats(lat), lons(lon), az, el, t, ionoparams);
         end
     end   
 end
@@ -66,36 +66,25 @@ az0=-180;
 azstep=0.5;
 azend=180;
 
-matrixPolar = zeros((elend-el0)/elstep, (azend-az0)/azstep,2);
-epoch=0;
-elsarray = zeros(1,(elend-el0)/elstep);
-azsarray = zeros(1,(azend-az0)/azstep);
+Dt=t0:tstep:tend;
+els = el0:elstep:elend;
+azs = az0:azstep:azend;
+matrixPolar = zeros(length(els), length(azs),length(Dt));
 
-for Dt = t0 : tstep : tend
-    epoch = epoch+1;
-    elindex=0;
-    for el = el0 : elstep : elend
-        elindex=elindex+1;
-        azindex=0;
-        if(epoch==1)
-            elsarray(elindex)=el;
-        end
-        for az = az0 : azstep : azend
-            azindex=azindex+1;
-            if(epoch==1 && el==el0)
-                azsarray(azindex)=az;
-            end
-            matrixPolar(elindex, azindex, epoch) = iono_correction(phi, lambda, az, el, Dt, ionoparams);
+for t = 1:length(Dt)
+    for el = 1:length(els)
+        for az = 1:length(azs)
+            matrixPolar(el, az, t) = iono_correction(phi, lambda, azs(az), els(el), t, ionoparams);
         end
     end   
 end
 
 %Polar plot
 
-[Az, El] = meshgrid(azsarray, elsarray);
+[Az, El] = meshgrid(azs, els);
 for i = 1 : 2
     figure(i + 1)
-    title(['Ionospheric Error Polar Map for Milan Observer time = ', num2str(i/3600),':00'])
+    title(['Ionospheric Error Polar Map for Milan Observer time = ', num2str(Dt(i)/3600),':00'])
     axesm('eqaazim', 'MapLatLimit', [0 90]);
     axis off
     framem on
