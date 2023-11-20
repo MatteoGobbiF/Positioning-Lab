@@ -12,14 +12,13 @@ for i = 1:1
     [azimuth, elevation, rho] = topocent(xyz_rec, xyz_sat);    
     
     xGeo = gc2gg(xyz_rec);
-    xGeo(3) = NaN;
 
     tropoC = tropo_correction (xGeo(3), elevation);
     ionoC = iono_correction(xGeo(1), xGeo(2), azimuth, elevation, time_rx, ionoparams);
     
     deltaP = pr_C1 - rho - tropoC - ionoC + c*dtS;
     
-
+    
 
 end
 

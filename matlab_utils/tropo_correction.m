@@ -15,7 +15,7 @@ function [tropoDelay] = tropo_correction(h, el)
 % 
 %--------------------------------------------------------------------------
 
-if (h < 5000)
+if (-500 < h && h< 5000)
     %conversion to radians
     el = abs(el) * pi/180;
     
