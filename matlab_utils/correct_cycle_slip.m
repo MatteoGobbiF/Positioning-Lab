@@ -9,7 +9,7 @@ new_DD(1,2) = old_DD(1,2);
 cycle_slip = false;
 for i=1:length(differences)
     new_DD(i+1,1) = i+1;
-    if abs(differences(i,2))>threshold
+    if abs(differences(i,2))>threshold && ~cycle_slip 
         x = differences(i,2)/lambda;
         n = round(x);
         if lambda * abs(n-x) <= threshold

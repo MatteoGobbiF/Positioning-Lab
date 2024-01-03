@@ -30,18 +30,27 @@ plot(difference_epoch(:,1),difference_epoch(:,2))
 % Identify cycle slips and repair them (hint: just one for cycle with both the actions)
 
 new_DD = idata;
+new_difference = difference;
+new_difference_epoch = difference_epoch;
 while(true)
-    [new_DD, cycle_slip] = correct_cycle_slip(new_DD,difference_epoch,lambda,threshold);
+    [new_DD, cycle_slip] = correct_cycle_slip(new_DD,new_difference_epoch,lambda,threshold);
+
+    for i=1:100
+    new_difference(i,1) = i;
+    new_difference(i,2)=new_DD(i,2)-idata(i,3);
+    end
+
+    new_difference_epoch(:,2) = diff(new_difference(:,2));
+    for i=1:99
+        new_difference_epoch(i,1)=i;
+    end
+
     if cycle_slip==false
         break
     end
+   
 end
 
-new_difference = zeros(100,2);
-for i=1:100
-    new_difference(i,1) = i;
-    new_difference(i,2)=new_DD(i,2)-idata(i,3);
-end
 
 figure
 plot(new_difference(:,1),new_difference(:,2))
